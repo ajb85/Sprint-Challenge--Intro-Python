@@ -14,20 +14,33 @@
 #
 # Note that the first line of the CSV is header that describes the fields--this
 # should not be loaded into a City object.
-cities = []
+import csv
+
+class City:
+  def __init__(self, name, lat, lon):
+    self.name = name
+    self.lat = lat
+    self.lon = lon
+
+  def readCity(self):
+    print(f"{self.name}: {self.lat} | {self.lon}")
 
 def cityreader(cities=[]):
-  # TODO Implement the functionality to read from the 'cities.csv' file
-  # For each city record, create a new City instance and add it to the 
-  # `cities` list
-    
-    return cities
+  with open("cities.csv", newline="\n") as csvFile:
+    cityReader = csv.reader(csvFile)
 
+    for row in cityReader:
+      if row[0] != 'city':
+        cities.append(City(row[0], float(row[3]), float(row[4])))
+      
+  return cities
+
+cities = []
 cityreader(cities)
 
 # Print the list of cities (name, lat, lon), 1 record per line.
-for c in cities:
-    print(c)
+# for c in cities:
+#     c.readCity()
 
 # STRETCH GOAL!
 #
@@ -58,14 +71,27 @@ for c in cities:
 # Tucson: (32.1558,-110.8777)
 # Salt Lake City: (40.7774,-111.9301)
 
-# TODO Get latitude and longitude values from the user
+coor1 = input("Please input the first lat/lon pair separated by a space: ").split(" ")
+coor2 = input("Please input the second lat/lon pair separated by a space: ").split(" ")
+
+lats = [float(coor1[0]), float(coor2[0])]
+lons = [float(coor1[1]), float(coor2[1])]
+
 
 def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # within will hold the cities that fall within the specified region
-  within = []
+  minLat = min(lat1, lat2)
+  maxLat = max(lat1, lat2)
+  minLon = min(lon1, lon2)
+  maxLon = max(lon1, lon2)
+  within = [city for city in cities if city.lat >= minLat and city.lat <= maxLat and city.lon>=minLon and city.lon <=maxLon]
 
   # TODO Ensure that the lat and lon valuse are all floats
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
 
   return within
+
+within = cityreader_stretch(float(coor1[0]), float(coor1[1]), float(coor2[0]), float(coor2[1]), cities)
+for c in within:
+    c.readCity()
