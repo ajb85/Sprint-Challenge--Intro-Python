@@ -24,10 +24,34 @@ class Vehicle:
     # def __init__(vStuff)
     pass
 
+class GroundVehicle(Vehicle):
+    # Base class: Vehicle
+    # def __init__(gvStuff, vStuff):
+        # super().__init__(vStuff)
+    pass
+
+class Car(GroundVehicle):
+    # Base class: GroundVehicle
+    # def __init__(cStuff, gvStuff):
+        # super().__init__(gvStuff)
+    pass
+
+class Motorcycle(GroundVehicle):
+    # Base class: GroundVehicle
+    # def __init__(mcStuff, gvStuff):
+        # super().__init__(gvStuff)
+    pass
+
 class FlightVehicle(Vehicle):
     # Base class: Vehicle
     # def __init__(fvStuff, vStuff):
         # super().__init__(vStuff)
+    pass
+
+class Airplane(FlightVehicle):
+    # Base class: FlightVehicle
+    # def __init__(apStuff, fvStuff):
+        # super().__init__(fvStuff)
     pass
 
 class Starship(FlightVehicle):
@@ -36,4 +60,9 @@ class Starship(FlightVehicle):
         # super().__init__(fvStuff)
     pass
 
-    
+# For fun
+class Enterprise(Starship):
+    # Base class: Starship
+    # def __init__(eStuff, ssStuff):
+        # super().__init__(ssStuff)
+    pass
